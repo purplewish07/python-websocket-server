@@ -18,8 +18,33 @@ def message_received(client, server, message):
 	print("Client(%d) said: %s" % (client['id'], message))
 
 	if(message=='list_clients'):
-		for client in server.clients:
-			print(client)
+		for obj in server.clients:
+			print(obj)
+
+	print(message[0:4])
+	if(message[0:4]=='tell'):
+		parts = message.split(',')
+
+		tell_part = parts[0].split(':')
+		id = int(tell_part[1])
+
+		for obj in server.clients:
+			if obj["id"]==id:
+				sendto = obj
+				break
+
+		text_part = parts[1].split(':')
+		text = text_part[1]
+
+		server.send_message(sendto,text)
+
+
+
+
+
+
+
+
 
 
 
