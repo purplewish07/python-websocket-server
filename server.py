@@ -17,9 +17,14 @@ def message_received(client, server, message):
 		message = message[:200]+'..'
 	print("Client(%d) said: %s" % (client['id'], message))
 
+	if(message=='list_clients'):
+		for client in server.clients:
+			print(client)
 
-PORT=9001
-server = WebsocketServer(port = PORT)
+
+
+PORT=5012
+server = WebsocketServer(host='192.168.2.3' ,port = PORT)
 server.set_fn_new_client(new_client)
 server.set_fn_client_left(client_left)
 server.set_fn_message_received(message_received)
